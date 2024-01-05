@@ -1,0 +1,106 @@
+Knight's Closed Tour, simplest way to get in C++
+(Source: https://codingbigdataalgorithm.com/)
+int mIndex[336], mStart[64], mEnd[64], mRate[64];
+string mNum[64];
+void GetTour2()
+{
+  int k1, k2, n1, n2, aCount = -1,aMove, aStart, aEnd, aMin;
+  string x1, aTour,aNum[70];
+  char c1[64];
+  aMove = 0;
+  aTour = mNum[aMove];
+  for (k2 = 2; k2 <= 64; k2++)
+        {
+	   mRate[aMove] = 99;
+           aStart = mStart[aMove]; aEnd = mEnd[aMove];
+           aMin = 99;
+           for (k1 = aStart; k1 <= aEnd; k1++)
+                 {
+		    n1 = mIndex[k1]; mRate[n1] = mRate[n1] - 1;
+                    if (aMin > mRate[n1])
+                         {
+                            aMin = mRate[n1]; aMove = n1;	
+			 }
+                 }
+          aTour = aTour + mNum[aMove];
+        }
+  cout << "Representaion of a Knight's Closed Tour:" << endl;
+  cout << aTour << endl;
+  
+  for (k2 = 0; k2 <= 6; k2++)
+        {
+          x1 = mNum[k2];
+		  if (k2 == 0) x1 = " ";
+          for (k1 = 0; k1 <= 9; k1++)
+                {
+                  aCount = aCount + 1;
+                  aNum[aCount] = x1 + mNum[k1]; 
+				}
+                 }
+  
+  aTour.copy(c1,64);
+  string aShow[64];
+  for (k1 = 0; k1 <= 63; k1++)
+        {
+          n1 = int(c1[k1]) - 48;
+          aShow[n1] = aNum[k1+1];
+	}
+  cout << endl;
+  aCount = -1;
+  for (k2 = 1; k2 <= 8; k2++)
+        {
+          for (k1 = 1; k1 <= 8; k1++)
+                {
+                  aCount = aCount + 1;
+                  cout << aShow[aCount] + "  ";
+		}
+          cout << endl << endl;
+	}
+}
+
+ void SetUp1()
+ {   
+   int k1, k2, n1, n2, n3, aCount = -1, aFilter[64], bFilter[120];
+   int aStep[] = {12,-21,-19,21,-12,-8,19,8}; 
+   string x1, x2;
+   char c1[64];
+   for (k1 = 0; k1 <= 63; k1++)
+        mNum[k1] = char(k1+48); 
+   for (k1 = 0; k1 <= 119; k1++)    
+        bFilter[k1] = 64;
+   for (k2 = 21; k2 <= 91; k2+= 10)
+         {
+	  for (k1 = k2; k1<= k2 + 7; k1++)
+	       {
+		 aCount = aCount + 1;
+                 aFilter[aCount] = k1;
+                 bFilter[k1] = aCount;
+               }
+         }
+   aCount = -1;
+   for (k2 = 0; k2<= 63; k2++)
+         {
+	   n1 = aFilter[k2];
+           mStart[k2] = aCount + 1;
+           for (k1 = 0; k1<= 7; k1++)
+                 {
+		   n2 = n1 + aStep[k1];
+                   n3 = bFilter[n2];
+                   if (n3 != 64)
+                        {
+			  aCount = aCount + 1;
+                          mIndex[aCount] = n3;
+                        }
+                 }
+           mEnd[k2] = aCount;
+         }
+   x1 = "2344443234666643468888644688886446888864468888643466664323444432";
+   x1.copy(c1,64);
+   for (k1 = 0; k1<= 63;k1++)
+        mRate[k1] = int(c1[k1]) - 48;
+ } 
+
+
+ 
+
+
